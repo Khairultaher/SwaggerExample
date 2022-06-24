@@ -2,7 +2,6 @@ using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,19 +14,26 @@ builder.Services.AddControllers()
     c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "WeatherForecast",
+        Version = "v1",     
         Description = "This is the API for managing WeatherForecast",
+        TermsOfService = new Uri("https://www.linkedin.com/in/khairultaher"),
         Contact = new OpenApiContact
         {
             Name = "khairul Alam",
             Email = "khairultaher@gmail.com",
             Url = new Uri("https://www.linkedin.com/in/khairultaher")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Use under LICX",
+            Url = new Uri("https://www.linkedin.com/in/khairultaher"),
         }
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -66,7 +72,11 @@ if (app.Environment.IsDevelopment())
 {
 
     app.UseSwagger();
-    app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherForecast: API"); });
+    app.UseSwaggerUI(x =>
+    {
+        x.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherForecast: API");
+        x.DefaultModelsExpandDepth(-1);
+    });
 }
 
 app.UseHttpsRedirection();

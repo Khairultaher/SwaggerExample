@@ -31,7 +31,23 @@ namespace SwaggerExample.Controllers
         //    .ToArray();
         //}
 
+
+        /// <summary>
+        /// Get WeatherForecast By Id
+        /// </summary>
         ///<param name="id" example="2">The product id</param>
+        /// <returns>Return success/fail status</returns>
+        /// <remarks>
+        /// **Sample request body:**
+        ///
+        ///     {
+        ///        "id": 2
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="401">Failed/Unauthorized</response>
+
         [HttpGet]
         [ProducesResponseType(typeof(WeatherForecast), 200)]
         [ProducesResponseType(400)]
@@ -48,18 +64,36 @@ namespace SwaggerExample.Controllers
         }
 
 
+        /// <summary>
+        /// Add new WeatherForecast
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Return success/fail status</returns>
+        /// <remarks>
+        /// **Sample request body:**
+        ///
+        ///     {
+        ///        "id": 1,
+        ///        "Date": "2022-06-24",
+        ///        "TemperatureC": 30,
+        ///        "Summary": "TemperatureC is 30 today",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="401">Failed/Unauthorized</response>
         [HttpPost]
         [ProducesResponseType(typeof(WeatherForecast), 201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<WeatherForecast>> Create([FromBody] WeatherForecast dto)
+        public async Task<ActionResult<WeatherForecast>> Create([FromBody] WeatherForecast model)
         {
 
             WeatherForecast weatherForecast = new WeatherForecast()
             {
-                Id = 1,
-                Date = DateTime.Now.AddDays(1),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Id = model.Id,
+                Date = model.Date,
+                TemperatureC =  model.TemperatureC,
+                Summary = model.Summary
             };
 
             return await Task.FromResult(weatherForecast);  
