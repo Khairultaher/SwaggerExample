@@ -87,7 +87,7 @@ namespace SwaggerExample.Controllers
         }
 
         /// <summary>
-        /// UpdateWeatherForecast
+        /// Update WeatherForecast
         /// </summary>
         /// <param name="model"></param>
         /// <returns>Return success/fail status</returns>
@@ -113,7 +113,7 @@ namespace SwaggerExample.Controllers
             return model;
         }
 
-        /// <param name="id" example="123">The product id</param>
+        /// <param name="id" example="123">The WeatherForecast id</param>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
