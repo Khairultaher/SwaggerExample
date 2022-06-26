@@ -14,7 +14,7 @@ builder.Services.AddControllers()
     c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -56,6 +56,7 @@ builder.Services.AddSwaggerGen(c =>
             new string[] {}
         }
     });
+    
     c.ExampleFilters();
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -75,7 +76,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(x =>
     {
         x.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherForecast: API");
-        x.DefaultModelsExpandDepth(-1);
+        //x.DefaultModelsExpandDepth(-1);
     });
 }
 

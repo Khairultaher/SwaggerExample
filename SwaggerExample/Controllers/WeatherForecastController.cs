@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SwaggerExample.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -18,20 +20,6 @@ namespace SwaggerExample.Controllers
             _logger = logger;
         }
 
-        //[HttpGet]
-        //public IEnumerable<WeatherForecast> Get()
-        //{
-        //    return Enumerable.Range(1, 10).Select(index => new WeatherForecast
-        //    {
-        //        Id = index,
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = Random.Shared.Next(-20, 55),
-        //        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
-
-
         /// <summary>
         /// Get WeatherForecast By Id
         /// </summary>
@@ -47,7 +35,6 @@ namespace SwaggerExample.Controllers
         /// </remarks>
         /// <response code="200">Success</response>
         /// <response code="401">Failed/Unauthorized</response>
-
         [HttpGet]
         [ProducesResponseType(typeof(WeatherForecast), 200)]
         [ProducesResponseType(400)]
@@ -97,6 +84,43 @@ namespace SwaggerExample.Controllers
             };
 
             return await Task.FromResult(weatherForecast);  
+        }
+
+        /// <summary>
+        /// UpdateWeatherForecast
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Return success/fail status</returns>
+        /// <remarks>
+        /// **Sample request body:**
+        ///
+        ///     {
+        ///        "id": 1,
+        ///        "Date": "2022-06-24",
+        ///        "TemperatureC": 30,
+        ///        "Summary": "TemperatureC is 30 today",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Success</response>
+        /// <response code="401">Failed/Unauthorized</response>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<WeatherForecast>> Update([FromBody] WeatherForecast model)
+        {
+            await Task.Delay(100);
+            return model;
+        }
+
+        /// <param name="id" example="123">The product id</param>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await Task.Delay(100);
+            return Ok();
         }
     }
 }
